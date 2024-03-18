@@ -195,25 +195,21 @@ class _SignUpState extends State<SignUp> {
                                     child: Center(
                                         child: Text(
                                           "انشاء",
-                                          style: TextStyle(
-                                              color: Colors.white,
-                                              fontSize: 18.0,
-                                              fontFamily: 'Poppins1',
-                                              fontWeight: FontWeight.bold),
+                                          style: AppWidget.HeadlineTextFeildStyle1(),
                                         )),
                                   ),
                                 ),
                 
                               ),
                               SizedBox(
-                                height: 10.0,
+                                height: 25.0,
                               ),
                               GestureDetector(
                                   onTap: (){
                                     Navigator.push(context, MaterialPageRoute(builder: (context)=> LogIn()));
                                   },
                                   child: Text("هل لديك حساب؟ تسجيل الدخول", style: AppWidget.semiBoldTextFeildStyle(),)),
-                              SizedBox(height: 15),
+                              SizedBox(height: 10),
                 
                             ],
                           ),

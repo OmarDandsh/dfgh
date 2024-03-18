@@ -16,7 +16,7 @@ class _ViewinfoState extends State<Viewinfo> {
   @override
 
   ontheload()async {
-    viewinfoboys = await DatabaseMethods().getFoodItem1("عقد ");
+    viewinfoboys = await DatabaseMethods().getFoodItem1("vfdvfdvfvf");
     setState(() {
     });
   }

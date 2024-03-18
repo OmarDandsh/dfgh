@@ -13,7 +13,7 @@ class NewPage extends StatefulWidget {
 class _NewPageState extends State<NewPage> {
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  String? value = 'عقد '; // تعيين القيمة الافتراضية هنا
+  String? value = 'vfdvfdvfvf'; // تعيين القيمة الافتراضية هنا
   TextEditingController namecontrollers = new TextEditingController();
   TextEditingController nationalitycontrollers = new TextEditingController();
   TextEditingController Religioncontrollers = new TextEditingController();
@@ -45,7 +45,17 @@ class _NewPageState extends State<NewPage> {
         nationalitycontrollers.text != "" &&
         Religioncontrollers.text != "" &&
         languagecontrollers.text != "") {
-      // إظهار CircularProgressIndicator
+
+      // إضافة العنصر إلى قاعدة البيانات
+      Map<String, dynamic> addItem = {
+        "Names": namecontrollers.text,
+        "Prices": nationalitycontrollers.text,
+        "Details": Religioncontrollers.text,
+        "nationalitys": languagecontrollers.text,
+      };
+      await DatabaseMethods().addFoodItem1(addItem, value!);
+
+      // إظهار CircularProgressIndicator بعد إضافة البيانات
       showDialog(
         context: context,
         barrierDismissible: false, // يمنع إغلاق الحوار بالنقر خارجه
@@ -57,7 +67,6 @@ class _NewPageState extends State<NewPage> {
                 mainAxisSize: MainAxisSize.min,
                 children: [
                   CircularProgressIndicator(
-                   // تقدم الدائرة بنسبة 70%
                     valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
                     backgroundColor: Color(0xFF600247), // لون الخلفية للدائرة غير المكتملة
                     strokeWidth: 5.0,
@@ -71,28 +80,19 @@ class _NewPageState extends State<NewPage> {
         },
       );
 
-      // انتظر لمدة 15 ثانية قبل القيام بأي عمليات أخرى
-      await Future.delayed(Duration(seconds: 1));
+      // انتظر لمدة 15 ثانية (أو أي مدة تريدها)
+      await Future.delayed(Duration(seconds: 15));
 
-      // تنفيذ العمليات اللازمة هنا (مثلاً، إضافة العنصر إلى قاعدة البيانات)
-      Map<String, dynamic> addItem = {
-        "Names": namecontrollers.text,
-        "Prices": nationalitycontrollers.text,
-        "Details": Religioncontrollers.text,
-        "nationalitys": languagecontrollers.text,
-      };
+      Navigator.pop(context); // إغلاق الحوار
 
-      await DatabaseMethods().addFoodItem1(addItem, value!);
-
-      Navigator.pop(context); // إغلاق الحوار بعد انتهاء العملية
-
-      // نقل المستخدم إلى صفحة أخرى بعد الانتظار
+      // نقل المستخدم إلى صفحة أخرى بعد الإضافة
       Navigator.pushReplacement(
         context,
-        MaterialPageRoute(builder: (context) => CodeCart(nameValue: namecontrollers.text)), // استبدل 'Home' بالصفحة التي تريد الانتقال إليها
+        MaterialPageRoute(builder: (context) => CodeCart(nameValue: namecontrollers.text)),
       );
     }
   }
+
 
   @override
   Widget build(BuildContext context) {

@@ -339,7 +339,7 @@ class _removeItemState extends State<removeItem> {
                               icon: Icon(Icons.delete, color: Colors.red),
                               onPressed: () {
                                 // افترض أن لديك وظيفة تسمى deleteFoodItem تأخذ معرف العنصر
-                                DatabaseMethods().deleteFoodItem("عقد جديد",ds.id);
+                                DatabaseMethods().deleteFoodItem("عقد منتهي",ds.id);
                               },
                             ),
 

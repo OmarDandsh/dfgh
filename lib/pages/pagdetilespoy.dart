@@ -12,6 +12,7 @@ import 'package:flutter/cupertino.dart';
 
 import 'infoBay.dart';
 
+
 class ConfirmationPage extends StatefulWidget {
   final Map<String, String> addressData;
   final double priceAfter;

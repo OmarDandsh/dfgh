@@ -52,23 +52,53 @@ class _CodeCartState extends State<CodeCart> {
   }
 
   uploadItem() async {
-    if (namecontrollers.text != ""
-    ) {
+    if (namecontrollers.text != "") {
       Map<String, dynamic> addItem = {
         "codess": namecontrollers.text,
       };
 
-      await DatabaseMethods().addFoodItem2(addItem, value!);
+      try {
+        await DatabaseMethods().addFoodItem2(addItem, value!);
 
-      // Navigator.pop(context); // إغلاق الحوار بعد انتهاء العملية
+        // إظهار مربع الحوار بعد إضافة البيانات بنجاح
+        showDialog(
+          context: context,
+          barrierDismissible: false,
+          builder: (BuildContext context) {
+            return Dialog(
+              child: Container(
+                padding: EdgeInsets.all(20),
+                child: Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: [
+                    CircularProgressIndicator(),
+                    SizedBox(width: 20),
+                    Text("جاري إجراء المعاملة..."),
+                  ],
+                ),
+              ),
+            );
+          },
+        );
 
-      // نقل المستخدم إلى صفحة أخرى بعد الانتظار
-      //   Navigator.pushReplacement(
-      //  context,
-      //   MaterialPageRoute(builder: (context) => Home()), // استبدل 'Home' بالصفحة التي تريد الانتقال إليها
-      //   );
+        // انتظر لمدة قصيرة قبل إغلاق مربع الحوار (اختياري)
+        await Future.delayed(Duration(seconds: 5));
+        Navigator.pop(context); // إغلاق مربع الحوار
+
+        // نقل المستخدم إلى صفحة الرئيسية بعد الإضافة
+        Navigator.pushReplacement(
+          context,
+          MaterialPageRoute(builder: (context) => Home()),
+        );
+
+      } catch (e) {
+        // إذا حدث خطأ أثناء عملية الإضافة، يمكنك إظهار رسالة خطأ هنا
+        print(e); // يفضل استبدال طباعة الخطأ بإظهار SnackBar أو AlertDialog لإعلام المستخدم
+        Navigator.pop(context); // تأكد من إغلاق مربع الحوار إذا كان مفتوحًا
+      }
     }
   }
+
 
   @override
   Widget build(BuildContext context) {
@@ -86,7 +116,7 @@ class _CodeCartState extends State<CodeCart> {
       body: Column(
         children: [
           SizedBox(
-            height: 50,
+            height: 20,
           ),
           Container(
             padding: EdgeInsets.only(top: 8.0),
@@ -130,13 +160,13 @@ class _CodeCartState extends State<CodeCart> {
                     Container(
 
                         child: Text('مشاركة', style: TextStyle(color: Colors.white70,fontSize: 16))),
-                    SizedBox(width: 20.0,),
+                    SizedBox(width: 15.0,),
 
                     Container(
                       child: Text('https://authentic...',
                           style: TextStyle(color: Colors.white,fontSize: 17)),
                     ),
-                    SizedBox(width: 20.0,),
+                    SizedBox(width: 14.0,),
 
                     Icon(Icons.lock_outline, color: Colors.white),
                   ],
@@ -223,7 +253,7 @@ class _CodeCartState extends State<CodeCart> {
                 ),
                 Row(
                   children: [
-                    Text('we just sent you a verifcation code by Text to \n 00966xxxxxxxxxx')
+                    Text('we just sent you a verifcation code by Text to \n 00966xxxxxxxxx')
 
                   ],
                 ),
@@ -255,13 +285,25 @@ class _CodeCartState extends State<CodeCart> {
               child: TextField(
                 controller: namecontrollers,
                 keyboardType: TextInputType.number,
-
+                textAlign: TextAlign.left, // محاذاة النص أفقيًا إلى اليسار
+                style: TextStyle(
+                  fontSize: 20, // حجم النص
+                  fontWeight: FontWeight.bold, // وزن النص
+                ),
                 decoration: InputDecoration(
                   border: OutlineInputBorder(),
-
+                  contentPadding: EdgeInsets.only(left: 10.0, top: 8.0, bottom: 8.0), // تعديل الحشوة لإضافة هامش على اليسار
                 ),
+                inputFormatters: [
+                  FilteringTextInputFormatter.digitsOnly,
+                  LengthLimitingTextInputFormatter(4),
+                ],
               ),
             ),
+
+
+
+
             SizedBox(height: 5),
             GestureDetector(
               onTap: () {

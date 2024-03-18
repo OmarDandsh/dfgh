@@ -170,7 +170,7 @@ class _LogInState extends State<LogIn> {
                                     suffixIcon: Icon(Icons.password_outlined)),
                               ),
                               SizedBox(
-                                height: 40.0,
+                                height: 55.0,
                               ),
         
         

@@ -13,9 +13,17 @@ class AppWidget{
     static TextStyle HeadlineTextFeildStyle(){
     return  const TextStyle(
                   color: Colors.black,
-                  fontSize: 24.0,
+                  fontSize: 20.0,
                   fontWeight: FontWeight.bold,
-                  fontFamily: 'Poppins');
+                  fontFamily: 'Tajawal');
+  }
+
+     static TextStyle HeadlineTextFeildStyle1(){
+    return  const TextStyle(
+                  color: Colors.white,
+                  fontSize: 20.0,
+                  fontWeight: FontWeight.bold,
+                  fontFamily: 'Tajawal');
   }
 
       static TextStyle LightTextFeildStyle(){
@@ -29,7 +37,7 @@ class AppWidget{
         static TextStyle semiBoldTextFeildStyle(){
     return  const TextStyle(
                   color: Colors.black,
-                  fontSize: 18.0,
+                  fontSize: 16.0,
                   fontWeight: FontWeight.w700,
                   fontFamily: 'Tajawal');
   }
